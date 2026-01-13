@@ -1,0 +1,37 @@
+import { useState, useEffect } from 'react'
+import './Hero.css'
+
+function Hero() {
+  const [offsetY, setOffsetY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => setOffsetY(window.pageYOffset)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <section id="home" className="hero">
+      <div className="hero-background" style={{ transform: `translateY(${offsetY * 0.5}px)` }} />
+      <div className="hero-content">
+        <p className="hero-subtitle">Empowering wellness in your school—made easy.</p>
+        <h1 className="hero-title">
+          Mindfulness Labs
+        </h1>
+        <p className="hero-description">
+          Culturally responsive, trauma-informed wellness tools—designed to integrate seamlessly into school communities and support educators with responsible, evidence-based AI.
+        </p>
+        <button className="cta-button">
+          Join Mailing List
+          <span className="button-arrow">→</span>
+        </button>
+        <button className="cta-button">
+          See How It Works
+          <span className="button-arrow">→</span>
+        </button>
+      </div>
+    </section>
+  )
+}
+
+export default Hero
