@@ -10,6 +10,13 @@ function Hero() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <section id="home" className="hero">
       <div className="hero-background" style={{ transform: `translateY(${offsetY * 0.5}px)` }} />
@@ -22,11 +29,11 @@ function Hero() {
           Culturally responsive, trauma-informed wellness tools—designed to integrate seamlessly into school communities and support educators with responsible, evidence-based AI.
         </p>
         <div className="button-group">
-            <button className="cta-button">
+            <button className="cta-button" onClick={() => scrollToSection('contact')}>
             Join Mailing List
             <span className="button-arrow">→</span>
             </button>
-            <button className="cta-button">
+            <button className="cta-button" onClick={() => scrollToSection('about')}>
             See How It Works
             <span className="button-arrow">→</span>
             </button>

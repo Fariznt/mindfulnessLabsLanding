@@ -8,8 +8,9 @@ const steps = [
     title: "Understand Community Needs",
     body: (
       <>
-        Schools assess well-being and identify areas of support using{" "}
-        <span className="underline">guided, collaborative input.</span>
+        Assesses school community well-being in real-time through user co-creation{" "}
+        with AI by providing <span className="underline">targeted guidance</span> to school communities to improve{" "}
+        and maintain school community wellness.
       </>
     ),
   },
