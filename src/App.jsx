@@ -6,6 +6,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import './App.css'
 import WhySection from './components/WhySection'
+import OurStory from './components/OurStory'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Hero />
       <About />
       <WhySection />
+      <OurStory />
       <Contact />
       <Footer />
     </div>
