@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import Video from './components/Video'
 import About from './components/About'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -12,6 +13,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Hero />
+      <Video />
       <About />
       <WhySection />
       <Contact />
