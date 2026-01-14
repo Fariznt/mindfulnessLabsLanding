@@ -1,5 +1,6 @@
 .video-section {
   padding: 4rem 2rem;
+  background: linear-gradient(180deg, #ffffff 0%, #FFFAE5 100%);
 }
 
 .video-container {
@@ -12,7 +13,7 @@
 }
 
 .video-header {
-  font-size: 2rem;
+  font-size: 3.2rem;
   font-weight: 600;
   text-align: center;
   margin-bottom: 0.5rem;
@@ -21,8 +22,8 @@
 
 .video-frame {
   width: 100%;
-  max-width: 1000px;
-  height: 600px;
+  max-width: 800px;
+  height: 450px;
   border-radius: 30px;
   border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
