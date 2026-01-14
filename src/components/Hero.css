@@ -8,7 +8,7 @@
   text-align: center;
   padding: 2rem;
   overflow: hidden;
-  color: white;
+  color: black;
 }
 
 .hero-background {
@@ -60,10 +60,11 @@
 }
 
 .hero-title {
-  font-size: 3.5rem;
+  font-size: 5rem;
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+  color: #FFAD08;
 }
 
 .gradient-text {
@@ -75,7 +76,6 @@
 
 .hero-subtitle {
   font-size: 1.8rem;
-  margin-bottom: 1.5rem;
   font-weight: 300;
   opacity: 0.95;
 }
@@ -90,19 +90,26 @@
 }
 
 .cta-button {
-  background-color: white;
-  color: var(--primary-color);
+  background-color: #FFAD08;
+  color: var(--primary-bg);
   border: none;
-  padding: 1.2rem 3rem;
+  padding: 1.2rem 2.5rem;
   font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 15px;
+  font-weight: 800;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.button-group {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .cta-button:hover {

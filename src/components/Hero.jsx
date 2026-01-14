@@ -21,14 +21,16 @@ function Hero() {
         <p className="hero-description">
           Culturally responsive, trauma-informed wellness tools—designed to integrate seamlessly into school communities and support educators with responsible, evidence-based AI.
         </p>
-        <button className="cta-button">
-          Join Mailing List
-          <span className="button-arrow">→</span>
-        </button>
-        <button className="cta-button">
-          See How It Works
-          <span className="button-arrow">→</span>
-        </button>
+        <div className="button-group">
+            <button className="cta-button">
+            Join Mailing List
+            <span className="button-arrow">→</span>
+            </button>
+            <button className="cta-button">
+            See How It Works
+            <span className="button-arrow">→</span>
+            </button>
+        </div>
       </div>
     </section>
   )

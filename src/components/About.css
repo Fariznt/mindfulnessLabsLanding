@@ -1,73 +1,85 @@
-.about-section {
-  padding: 6rem 2rem;
-  background-color: var(--bg-light);
+/* Matches the mockup: warm background, huge title, simple icon+text rows */
+.aboutSection {
+  background: var(--secondary-bg);
+  padding: 96px 24px;
 }
 
-.section-title {
-  text-align: center;
-  font-size: 2.8rem;
-  margin-bottom: 3rem;
-  color: var(--text-dark);
-  position: relative;
+.aboutContainer {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  border-radius: 2px;
+.aboutTitle {
+  margin: 0 0 56px 0;
+  font-size: 4.0rem;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: left; /* key difference from your current centered title */
+  color: #0b0b0b;
 }
 
-.about-content {
+.accent {
+  color: #ffb800;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 56px; /* roomy like the mock */
+}
+
+.step {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 4rem;
+  grid-template-columns: 120px 1fr; /* icon column + text column */
+  column-gap: 40px;
+  align-items: start;
 }
 
-.about-card {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  text-align: center;
+.iconWrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 6px; /* nudges icon down to align with headline baseline */
 }
 
-.about-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+.stepIcon {
+  width: 128px;
+  height: 128px;
+  color: #ffb800;
 }
 
-.card-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+.stepTitle {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #0b0b0b;
 }
 
-.about-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--text-dark);
+.stepBody {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.35;
+  font-weight: 300;
+  color: #0b0b0b;
 }
 
-.about-card p {
-  color: var(--text-light);
-  line-height: 1.8;
+.underline {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
 }
 
-.fade-in {
-  animation: fadeIn 0.8s ease-out;
+/* Keep your fade-in, but soften it a bit */
+.fadeIn {
+  animation: fadeIn 600ms ease-out both;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -75,16 +87,44 @@
   }
 }
 
-@media (max-width: 768px) {
-  .about-section {
-    padding: 4rem 1.5rem;
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .aboutTitle {
+    font-size: 48px;
+    margin-bottom: 40px;
   }
 
-  .section-title {
-    font-size: 2.2rem;
+  .step {
+    grid-template-columns: 88px 1fr;
+    column-gap: 24px;
   }
 
-  .about-content {
+  .stepIcon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .stepTitle {
+    font-size: 32px;
+  }
+
+  .stepBody {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .aboutSection {
+    padding: 72px 18px;
+  }
+
+  .step {
     grid-template-columns: 1fr;
+    row-gap: 14px;
+  }
+
+  .iconWrap {
+    justify-content: flex-start;
+    padding-top: 0;
   }
 }
