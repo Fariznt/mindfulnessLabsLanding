@@ -1,0 +1,49 @@
+.our-story {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.our-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.our-story-content h2 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.our-story-content h2 .highlight {
+  color: #FFB800;
+}
+
+.our-story-content p {
+  font-size: 1.55rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.our-story-image {
+  background-color: #D1D5DB;
+  border-radius: 1.5rem;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.our-story-image svg {
+  width: 4rem;
+  height: 4rem;
+  color: #9CA3AF;
+}
+
+@media (max-width: 768px) {
+  .our-story-grid {
+    grid-template-columns: 1fr;
+  }
+}

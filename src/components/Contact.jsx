@@ -32,33 +32,14 @@ function Contact() {
       const data = await response.json();
 
       if (data.success) {
-        setStatus('Successfully subscribed to our mailing list!');
+        setStatus('success');
         setFormData({ firstName: '', lastName: '', email: '', message: '' });
       } else {
-        setStatus('Error: ' + data.error);
+        setStatus('error');
       }
     } catch (error) {
-        const status = error?.response?.status;
-        const data = error?.response?.data;
-
-        console.log("=== WIX ERROR RAW ===");
-        console.log(error);
-
-        console.log("=== WIX ERROR STATUS ===");
-        console.log(status);
-
-        console.log("=== WIX ERROR DATA (stringified) ===");
-        console.log(JSON.stringify(data, null, 2));
-
-        // Some Wix SDK errors also store details here:
-        console.log("=== WIX ERROR DETAILS (stringified) ===");
-        console.log(JSON.stringify(error?.details, null, 2));
-
-        res.status(status || 500).json({
-            success: false,
-            status: status || 500,
-            wixData: data || null,
-        });
+      console.error('Error:', error);
+      setStatus('error');
     } finally {
       setLoading(false);
     }
@@ -74,51 +55,67 @@ function Contact() {
   return (
     <section id="contact" className="contact-section">
       <div className="container">
-        <h2 className="section-title">Get In Touch</h2>
+        <h2 className="section-title">Stay connected with <span className="highlight">Mindfulness Labs</span></h2>
+        <p className="section-subtitle">Join our mailing list to receive updates, insights, and early access.</p>
         <div className="contact-content">
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
+              <label htmlFor="firstName">Name</label>
               <input
-              type="text"
-              name="firstName"
-              placeholder="First name"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-              />
-
-              <input
-              type="text"
-              name="lastName"
-              placeholder="Last name"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
+                id="firstName"
+                type="text"
+                name="firstName"
+                placeholder="Value"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
               />
             </div>
             <div className="form-group">
+              <label htmlFor="lastName">Role</label>
               <input
+                id="lastName"
+                type="text"
+                name="lastName"
+                placeholder="Value"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
                 type="email"
                 name="email"
-                placeholder="Your Email"
+                placeholder="Value"
                 value={formData.email}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="form-group">
+              <label htmlFor="message">Message</label>
               <textarea
+                id="message"
                 name="message"
-                placeholder="Your Message"
-                rows="5"
+                placeholder="Value"
                 value={formData.message}
                 onChange={handleChange}
                 required
               ></textarea>
             </div>
-            <button type="submit" className="submit-button">
-              Send Message
+            <button type="submit" className="submit-button" disabled={loading}>
+              {loading ? 'Sending...' : 'Submit'}
             </button>
+            {status && (
+              <div className={`status-message ${status}`}>
+                {status === 'success'
+                  ? 'Successfully subscribed to our mailing list!'
+                  : 'Error subscribing. Please try again.'}
+              </div>
+            )}
           </form>
         </div>
       </div>
