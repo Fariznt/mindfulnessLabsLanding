@@ -26,22 +26,36 @@ app.post('/api/subscribe', async (req, res) => {
   try {
     const { email, firstName, role, message } = req.body;
 
-    const response = await wixClient.contacts.createContact({
-      info: {
-        name: {
-          first: firstName
-        },
-        emails: [{
-          email: email,
-          primary: true
-        }],
-        labelKeys: [role] // Store role as a label
+    const contactInfo = {
+      name: {
+        first: firstName
       },
-      additionalFields: {
-        message: message // Store message in additional fields
+      emails: {
+        items: [
+          {
+            email: email,
+            primary: true
+          }
+        ]
       }
-    });
+    };
 
+    // Add role and message to extended fields if provided
+    if (role || message) {
+      contactInfo.extendedFields = {
+        items: {}
+      };
+      if (role) {
+        contactInfo.extendedFields.items['custom.role'] = role;
+      }
+      if (message) {
+        contactInfo.extendedFields.items['custom.message'] = message;
+      }
+    }
+
+    const response = await wixClient.contacts.createContact(contactInfo);
+
+    console.log('Contact created successfully:', response);
     res.json({ success: true, data: response });
   } catch (error) {
     console.error('Error creating contact:', error);

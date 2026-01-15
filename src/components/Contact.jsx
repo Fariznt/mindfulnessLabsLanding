@@ -108,7 +108,6 @@ function Contact() {
                 placeholder="Value"
                 value={formData.message}
                 onChange={handleChange}
-                required
               ></textarea>
             </div>
             <button type="submit" className="submit-button" disabled={loading}>
