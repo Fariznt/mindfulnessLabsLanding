@@ -4,7 +4,7 @@ import './Contact.css'
 function Contact() {
   const [formData, setFormData] = useState({
     firstName: '',
-    lastName: '',
+    role: '',
     email: '',
     message: ''
   });
@@ -25,7 +25,8 @@ function Contact() {
         body: JSON.stringify({
           email: formData.email,
           firstName: formData.firstName,
-          lastName: formData.lastName
+          role: formData.role,
+          message: formData.message
         })
       });
 
@@ -33,7 +34,7 @@ function Contact() {
 
       if (data.success) {
         setStatus('success');
-        setFormData({ firstName: '', lastName: '', email: '', message: '' });
+        setFormData({ firstName: '', role: '', email: '', message: '' });
       } else {
         setStatus('error');
       }
@@ -72,16 +73,20 @@ function Contact() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="lastName">Role</label>
-              <input
-                id="lastName"
-                type="text"
-                name="lastName"
-                placeholder="Value"
-                value={formData.lastName}
+              <label htmlFor="role">Role</label>
+              <select
+                id="role"
+                name="role"
+                value={formData.role}
                 onChange={handleChange}
                 required
-              />
+              >
+              <option value="" disabled>Select a role</option>
+              <option value="Parent">Parent</option>
+              <option value="Educator">Educator</option>
+              <option value="School Admin">School Admin</option>
+              <option value="Other">Other</option>
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>

@@ -24,20 +24,21 @@ const wixClient = createClient({
 
 app.post('/api/subscribe', async (req, res) => {
   try {
-    const { email, firstName, lastName } = req.body;
+    const { email, firstName, role, message } = req.body;
 
-    const response = await wixClient.use(contacts).createContact({
-      contact: {
-        info: {
-          name: {
-            first: firstName,
-            last: lastName
-          },
-          emails: [{
-            email: email,
-            primary: true
-          }]
-        }
+    const response = await wixClient.contacts.createContact({
+      info: {
+        name: {
+          first: firstName
+        },
+        emails: [{
+          email: email,
+          primary: true
+        }],
+        labelKeys: [role] // Store role as a label
+      },
+      additionalFields: {
+        message: message // Store message in additional fields
       }
     });
 

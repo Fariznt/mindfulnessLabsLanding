@@ -1,11 +1,11 @@
 /* Matches the mockup: warm background, huge title, simple icon+text rows */
 .aboutSection {
   background: var(--secondary-bg);
-  padding: 86px 22px;
+  padding: 86px 30px;
 }
 
 .aboutContainer {
-  max-width: 1100px;
+  max-width: 1800px;
   margin: 0 auto;
 }
 

@@ -1,5 +1,5 @@
 .video-section {
-  padding: 4rem 2rem;
+  padding: 0rem 2rem;
   background: linear-gradient(180deg, #ffffff 0%, #FFFAE5 100%);
 }
 
@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 .video-header {
