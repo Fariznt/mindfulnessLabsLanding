@@ -33,6 +33,17 @@
   background-clip: text;
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.navbar-logo {
+  width: 40px;
+  height: 40px;
+}
+
 .nav-links {
   display: flex;
   list-style: none;

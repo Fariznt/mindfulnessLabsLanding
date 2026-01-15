@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Navbar.css'
+import logo from '../assets/logo.png'
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -16,7 +17,10 @@ function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
-        <div className="logo">Mindfulness Labs</div>
+        <div className="logo-container">
+          <img src={logo} alt="Mindfulness Labs" className="navbar-logo" />
+          <div className="logo">Mindfulness Labs</div>
+        </div>
         
         <button 
           className="mobile-menu-btn"
