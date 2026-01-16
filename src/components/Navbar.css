@@ -44,6 +44,24 @@
   height: 40px;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.instagram-link {
+  color: #000;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.instagram-link:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
 .nav-links {
   display: flex;
   list-style: none;

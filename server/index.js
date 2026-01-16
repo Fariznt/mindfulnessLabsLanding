@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { createClient } from '@wix/api-client';
 import { contacts } from '@wix/crm';
+// import { labels } from '@wix/crm'; // Commented out for testing
 
 dotenv.config();
 
@@ -22,13 +23,60 @@ const wixClient = createClient({
   }
 });
 
+// Helper function to find or create a label - COMMENTED OUT FOR TESTING
+/*
+async function findOrCreateLabel(labelName) {
+  try {
+    // Try to find existing label
+    const { labels: existingLabels } = await wixClient.labels.queryLabels().find();
+    const existingLabel = existingLabels.find(label => label.displayName === labelName);
+    
+    if (existingLabel) {
+      return existingLabel.key;
+    }
+    
+    // Create new label if it doesn't exist
+    const newLabel = await wixClient.labels.createLabel({
+      displayName: labelName,
+      labelType: 'USER_DEFINED'
+    });
+    
+    return newLabel.key;
+  } catch (error) {
+    console.error(`Error finding/creating label "${labelName}":`, error);
+    return null;
+  }
+}
+*/
+
 app.post('/api/subscribe', async (req, res) => {
   try {
-    const { email, firstName, role, message } = req.body;
+    const { email, firstName, lastName, role, message } = req.body;
+
+    // COMMENTED OUT LABEL CODE FOR TESTING
+    /*
+    // Prepare label keys
+    const labelKeys = [];
+    
+    // Find or create "Interest from Landing Page" label
+    const landingPageLabelKey = await findOrCreateLabel('Interest from Landing Page');
+    if (landingPageLabelKey) {
+      labelKeys.push(landingPageLabelKey);
+    }
+    
+    // Find or create role-based label
+    if (role) {
+      const roleLabelKey = await findOrCreateLabel(role);
+      if (roleLabelKey) {
+        labelKeys.push(roleLabelKey);
+      }
+    }
+    */
 
     const contactInfo = {
       name: {
-        first: firstName
+        first: firstName,
+        last: lastName
       },
       emails: {
         items: [
@@ -39,6 +87,15 @@ app.post('/api/subscribe', async (req, res) => {
         ]
       }
     };
+
+    // COMMENTED OUT - Add labels if any were successfully created/found
+    /*
+    if (labelKeys.length > 0) {
+      contactInfo.labelKeys = {
+        items: labelKeys
+      };
+    }
+    */
 
     // Add role and message to extended fields if provided
     if (role || message) {

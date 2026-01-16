@@ -1,15 +1,12 @@
 import './OurStory.css';
+import classroomImage from '../assets/classroom.jpg';
 
 export default function OurStory() {
   return (
     <section className="our-story">
       <div className="our-story-grid">
         <div className="our-story-image">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" />
-            <path d="M21 15l-5-5L5 21" strokeWidth="2" />
-          </svg>
+          <img src={classroomImage} alt="Students and teacher in a colorful classroom" />
         </div>
         <div className="our-story-content">
           <h2>

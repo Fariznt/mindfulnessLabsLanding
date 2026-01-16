@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Navbar.css'
 import logo from '../assets/logo.png'
+import { Instagram } from 'lucide-react'
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -22,13 +23,25 @@ function Navbar() {
           <div className="logo">Mindfulness Labs</div>
         </div>
         
-        <button 
-          className="mobile-menu-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          ☰
-        </button>
+        <div className="nav-right">
+          <a 
+            href="https://www.instagram.com/mindfulnesslabs_ai/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="instagram-link"
+            aria-label="Visit our Instagram"
+          >
+            <Instagram size={24} strokeWidth={2} />
+          </a>
+          
+          <button 
+            className="mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            ☰
+          </button>
+        </div>
       </div>
     </nav>
   )

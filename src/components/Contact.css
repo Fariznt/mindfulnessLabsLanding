@@ -36,6 +36,15 @@
   background: white;
 }
 
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -81,6 +90,17 @@
 .form-group textarea::placeholder,
 .form-group select option[value=""] {
   color: #9ca3af;
+}
+
+.form-group select option {
+  padding: 1rem;
+  background-color: #FFFAE5;
+  color: #000;
+  font-size: 1rem;
+}
+
+.form-group select option:hover {
+  background-color: #FFB800;
 }
 
 .form-group input:focus,
@@ -135,6 +155,28 @@
   color: #991b1b;
 }
 
+.contact-social {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-instagram-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #000;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.contact-instagram-link:hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
   .contact-section {
     padding: 4rem 1.5rem;
@@ -146,5 +188,9 @@
 
   .contact-form {
     padding: 2rem;
+  }
+
+  .form-row {
+    flex-direction: column;
   }
 }

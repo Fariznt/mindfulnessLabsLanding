@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { Instagram } from 'lucide-react'
 import './Contact.css'
 
 function Contact() {
   const [formData, setFormData] = useState({
     firstName: '',
+    lastName: '',
     role: '',
     email: '',
     message: ''
@@ -25,6 +27,7 @@ function Contact() {
         body: JSON.stringify({
           email: formData.email,
           firstName: formData.firstName,
+          lastName: formData.lastName,
           role: formData.role,
           message: formData.message
         })
@@ -34,7 +37,7 @@ function Contact() {
 
       if (data.success) {
         setStatus('success');
-        setFormData({ firstName: '', role: '', email: '', message: '' });
+        setFormData({ firstName: '', lastName: '', role: '', email: '', message: '' });
       } else {
         setStatus('error');
       }
@@ -60,17 +63,31 @@ function Contact() {
         <p className="section-subtitle">Join our mailing list to receive updates, insights, and early access.</p>
         <div className="contact-content">
           <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="firstName">Name</label>
-              <input
-                id="firstName"
-                type="text"
-                name="firstName"
-                placeholder="Value"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  id="firstName"
+                  type="text"
+                  name="firstName"
+                  placeholder="John"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  id="lastName"
+                  type="text"
+                  name="lastName"
+                  placeholder="Doe"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="role">Role</label>
@@ -82,10 +99,12 @@ function Contact() {
                 required
               >
               <option value="" disabled>Select a role</option>
-              <option value="Parent">Parent</option>
               <option value="Educator">Educator</option>
               <option value="School Admin">School Admin</option>
-              <option value="Other">Other</option>
+              <option value="Funder/Investor">Funder/Investor</option>
+              <option value="Collaborator/Partner">Collaborator/Partner</option>
+              <option value="Student">Student</option>
+              <option value="General Supporter">General Supporter</option>
               </select>
             </div>
             <div className="form-group">
@@ -94,7 +113,7 @@ function Contact() {
                 id="email"
                 type="email"
                 name="email"
-                placeholder="Value"
+                placeholder="john.doe@example.com"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -105,7 +124,7 @@ function Contact() {
               <textarea
                 id="message"
                 name="message"
-                placeholder="Value"
+                placeholder="Tell us about your interest in Mindfulness Labs..."
                 value={formData.message}
                 onChange={handleChange}
               ></textarea>
@@ -121,6 +140,18 @@ function Contact() {
               </div>
             )}
           </form>
+          <div className="contact-social">
+            <a 
+              href="https://www.instagram.com/mindfulnesslabs_ai/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="contact-instagram-link"
+              aria-label="Follow us on Instagram"
+            >
+              <Instagram size={28} strokeWidth={2} />
+              <span>Follow us on Instagram</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

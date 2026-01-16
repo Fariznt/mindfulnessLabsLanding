@@ -7,7 +7,7 @@ export default function Video() {
         <h2 className="video-header">Reimagining Wellness in Schools</h2>
         <iframe
           className="video-frame"
-          src="https://www.youtube.com/embed/iGMCB7iNHZ0?autoplay=1&mute=1&loop=1&playlist=iGMCB7iNHZ0"
+          src="https://www.youtube.com/embed/YsxhgT9jsy4?autoplay=1&mute=1&loop=1&playlist=YsxhgT9jsy4"
           title="Mindfulness Video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
