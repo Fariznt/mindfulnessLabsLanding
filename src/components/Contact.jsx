@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Instagram } from 'lucide-react'
+import { Instagram, Linkedin } from 'lucide-react'
 import './Contact.css'
 
 function Contact() {
@@ -150,6 +150,17 @@ function Contact() {
             >
               <Instagram size={28} strokeWidth={2} />
               <span>Follow us on Instagram</span>
+            </a>
+
+            <a 
+              href="https://www.linkedin.com/company/mindfulness-labs/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-linkedin-link"
+              aria-label="Connect with us on LinkedIn"
+            >
+              <Linkedin size={28} strokeWidth={2} />
+              <span>Connect with us on LinkedIn</span>
             </a>
           </div>
         </div>

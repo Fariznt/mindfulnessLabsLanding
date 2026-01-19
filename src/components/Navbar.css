@@ -50,14 +50,14 @@
   gap: 1.5rem;
 }
 
-.instagram-link {
+.social-link {
   color: #000;
   display: flex;
   align-items: center;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.instagram-link:hover {
+.social-link:hover {
   opacity: 0.7;
   transform: scale(1.1);
 }

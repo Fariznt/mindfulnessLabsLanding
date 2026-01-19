@@ -1,6 +1,8 @@
 # Mindfulness Labs Landing Page
 
-Landing Page Website for Mindfulness Labs with Effective to Great Education
+Landing page website for Mindfulness Labs.
+
+This site collects interest (name, email, role, optional message) and sends it to a small backend API, which creates/updates a contact in Wix CRM.
 
 ## Prerequisites
 
@@ -21,7 +23,58 @@ Before you begin, ensure you have the following installed:
    npm install
    ```
 
-3. **Run the development server**
+3. **Set up environment variables (backend)**
+
+   Create a `.env` file in the project root:
+
+   ```bash
+   WIX_SITE_ID="<your-wix-site-id>"
+   WIX_API_KEY="<your-wix-api-key>"
+   PORT=3001
+   ```
+
+   Important: never commit your Wix API key.
+
+4. **Run the dev servers**
+
+   Run both the frontend (Vite) and backend (Express):
+
+   ```bash
+   npm run dev:full
+   ```
+
+   - Frontend: `http://localhost:8000`
+   - Backend API: `http://localhost:3001`
+
+   Or run them separately:
+
+   ```bash
+   npm run dev
+   npm run server
+   ```
+
+## What the website does
+
+- Renders a marketing/landing page for Mindfulness Labs.
+- Provides a contact form for users to share their role and interest.
+- Sends submissions to a backend API which stores the lead in Wix CRM.
+
+## How the API is used (Wix CRM)
+
+The backend lives in [server/index.js](server/index.js) and exposes:
+
+- `POST /api/subscribe`: Creates a Wix CRM contact using the submitted email and name.
+  - Saves the selected role into an extended field (custom field) in Wix.
+  - Saves a message into a Wix extended field whose display name is **"Message**.
+
+### “Interest from Landing Page” logic
+
+Wix CRM is set up to filter/save contacts into a view called **"Interest from Landing Page"** based on whether a new contact has a message.
+
+To support that flow, the backend guarantees a message is always sent:
+
+- If the user enters a message in the form, that message is stored.
+- If the user leaves the message blank, the backend stores the default value: **"Interest from Landing Page"**.
    ```bash
    npm run dev
    ```
@@ -31,5 +84,7 @@ Before you begin, ensure you have the following installed:
 ## Available Scripts
 
 - `npm run dev` - Start the development server with hot reload
+- `npm run server` - Start the backend API server (Express)
+- `npm run dev:full` - Run frontend + backend together
 - `npm run build` - Build the project for production
 - `npm run preview` - Preview the production build locally

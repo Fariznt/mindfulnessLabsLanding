@@ -159,6 +159,8 @@
   margin-top: 2rem;
   display: flex;
   justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
 }
 
 .contact-instagram-link {
@@ -173,6 +175,22 @@
 }
 
 .contact-instagram-link:hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+.contact-linkedin-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #000;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.contact-linkedin-link:hover {
   opacity: 0.7;
   transform: translateY(-2px);
 }

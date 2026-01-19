@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Navbar.css'
 import logo from '../assets/logo.png'
-import { Instagram } from 'lucide-react'
+import { Instagram, Linkedin } from 'lucide-react'
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -28,10 +28,20 @@ function Navbar() {
             href="https://www.instagram.com/mindfulnesslabs_ai/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="instagram-link"
+            className="social-link"
             aria-label="Visit our Instagram"
           >
             <Instagram size={24} strokeWidth={2} />
+          </a>
+
+          <a 
+            href="https://www.linkedin.com/company/mindfulness-labs/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+            aria-label="Visit our LinkedIn"
+          >
+            <Linkedin size={24} strokeWidth={2} />
           </a>
           
           <button 
