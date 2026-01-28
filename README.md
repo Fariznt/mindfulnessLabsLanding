@@ -1,6 +1,6 @@
 # Mindfulness Labs Landing Page
 
-Landing page website for Mindfulness Labs.
+Landing page website for Mindfulness Labs. (This README is in the Github and README folder.)
 
 This site collects interest (name, email, role, optional message) and sends it to a small backend API, which creates/updates a contact in Wix CRM.
 
