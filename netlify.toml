@@ -3,6 +3,10 @@
   functions = "netlify/functions"
   publish = "dist"
 
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["@wix/api-client", "@wix/crm"]
+
 [dev]
   framework = "vite"
 
