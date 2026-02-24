@@ -11,7 +11,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {currentYear} Mindfulness Labs - ETGE. All rights reserved.</p>
+        <p>&copy; {currentYear} Mindfulness Labs. All rights reserved.</p>
       </div>
     </footer>
   )
