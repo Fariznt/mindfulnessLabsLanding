@@ -1,7 +1,5 @@
-import pkg from '@wix/api-client';
-import { contacts, labels, extendedFields } from '@wix/crm';
-
-const { createClient } = pkg;
+const { createClient } = require('@wix/api-client');
+const { contacts, labels, extendedFields } = require('@wix/crm');
 
 const wixClient = createClient({
   modules: { contacts, labels, extendedFields },
@@ -89,31 +87,47 @@ async function getExistingLabelKey(displayName) {
   }
 }
 
-export default async (req, res) => {
-  // Handle CORS
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    return res.status(200).end();
+exports.handler = async (event, context) => {
+  // Parse the body
+  let body;
+  try {
+    body = JSON.parse(event.body || '{}');
+  } catch {
+    body = {};
   }
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  // Handle CORS
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json'
+  };
 
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers };
+  }
+
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: 'Method not allowed' })
+    };
   }
 
   try {
     // Check environment variables
     if (!process.env.WIX_API_KEY || !process.env.WIX_SITE_ID) {
       console.error('Missing WIX_API_KEY or WIX_SITE_ID environment variables');
-      return res.status(500).json({ success: false, error: 'Missing environment variables' });
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ success: false, error: 'Missing environment variables' })
+      };
     }
 
-    const { email, firstName, lastName, role, message } = req.body;
+    const { email, firstName, lastName, role, message } = body;
 
     const trimmedMessage = typeof message === 'string' ? message.trim() : '';
     const messageForCrm = trimmedMessage || DEFAULT_LANDING_MESSAGE;
@@ -175,9 +189,17 @@ export default async (req, res) => {
     }
 
     console.log('Contact created successfully:', response);
-    return res.status(200).json({ success: true, data: response });
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ success: true, data: response })
+    };
   } catch (error) {
     console.error('Error creating contact:', error);
-    return res.status(500).json({ success: false, error: error.message });
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ success: false, error: error.message })
+    };
   }
 };
