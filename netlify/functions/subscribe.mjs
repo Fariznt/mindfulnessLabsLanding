@@ -89,19 +89,28 @@ async function getExistingLabelKey(displayName) {
 
 export default async (req, res) => {
   // Handle CORS
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(200).end();
+  }
+
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
+    // Check environment variables
+    if (!process.env.WIX_API_KEY || !process.env.WIX_SITE_ID) {
+      console.error('Missing WIX_API_KEY or WIX_SITE_ID environment variables');
+      return res.status(500).json({ success: false, error: 'Missing environment variables' });
+    }
+
     const { email, firstName, lastName, role, message } = req.body;
 
     const trimmedMessage = typeof message === 'string' ? message.trim() : '';
