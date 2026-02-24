@@ -22,7 +22,7 @@ function Contact() {
       // Use localhost API in development, Netlify function in production
       const apiUrl = window.location.hostname === 'localhost' 
         ? 'http://localhost:3001/api/subscribe'
-        : '/.netlify/functions/subscribe';
+        : '/subscribe';
 
       const response = await fetch(apiUrl, {
         method: 'POST',

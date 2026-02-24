@@ -1,10 +1,24 @@
 const WIX_API_BASE = 'https://www.wixapis.com/contacts/v4';
 
-const headers = (apiKey, siteId) => ({
-  Authorization: apiKey,
-  'wix-site-id': siteId,
-  'Content-Type': 'application/json',
+const wixHeaders = (apiKey, siteId) => ({
+  Authorization: apiKey,
+  'wix-site-id': siteId,
+  'Content-Type': 'application/json',
 });
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Content-Type': 'application/json',
+};
+
+function jsonResponse(statusCode, body) {
+  return new Response(JSON.stringify(body), {
+    status: statusCode,
+    headers: corsHeaders,
+  });
+}
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -92,7 +106,6 @@ async function findOrCreateLabel(displayName, authHeaders) {
     });
 
     if (!res.ok) {
-      // If it already exists, Wix may return 409 — fall back to lookup.
       if (res.status === 409) return getExistingLabelKey(displayName, authHeaders);
       console.error('Error creating label:', res.status, await res.text());
       return null;
@@ -107,7 +120,6 @@ async function findOrCreateLabel(displayName, authHeaders) {
 }
 
 async function labelContact(contactId, labelKeys, authHeaders) {
-  // Wix REST API: label a contact by adding label keys
   for (const key of labelKeys) {
     try {
       await fetch(`https://www.wixapis.com/contacts/v4/contacts/${contactId}/labels`, {
@@ -121,33 +133,15 @@ async function labelContact(contactId, labelKeys, authHeaders) {
   }
 }
 
-// ── Main Handler ─────────────────────────────────────────────────────
+// ── Main Handler (Netlify Functions v2) ──────────────────────────────
 
-export default async (event, context) => {
-  let body;
-  try {
-    body = JSON.parse(event.body || '{}');
-  } catch {
-    body = {};
+export default async (req, context) => {
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { status: 200, headers: corsHeaders });
   }
 
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json',
-  };
-
-  if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers: corsHeaders };
-  }
-
-  if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers: corsHeaders,
-      body: JSON.stringify({ error: 'Method not allowed' }),
-    };
+  if (req.method !== 'POST') {
+    return jsonResponse(405, { error: 'Method not allowed' });
   }
 
   try {
@@ -156,14 +150,18 @@ export default async (event, context) => {
 
     if (!apiKey || !siteId) {
       console.error('Missing WIX_API_KEY or WIX_SITE_ID environment variables');
-      return {
-        statusCode: 500,
-        headers: corsHeaders,
-        body: JSON.stringify({ success: false, error: 'Missing environment variables' }),
-      };
+      return jsonResponse(500, { success: false, error: 'Missing environment variables' });
     }
 
-    const authHeaders = headers(apiKey, siteId);
+    const authHeaders = wixHeaders(apiKey, siteId);
+
+    let body;
+    try {
+      body = await req.json();
+    } catch {
+      body = {};
+    }
+
     const { email, firstName, lastName, role, message } = body;
 
     const trimmedMessage = typeof message === 'string' ? message.trim() : '';
@@ -229,17 +227,9 @@ export default async (event, context) => {
     }
 
     console.log('Contact created successfully:', contactId);
-    return {
-      statusCode: 200,
-      headers: corsHeaders,
-      body: JSON.stringify({ success: true, data: createData }),
-    };
+    return jsonResponse(200, { success: true, data: createData });
   } catch (error) {
     console.error('Error creating contact:', error);
-    return {
-      statusCode: 500,
-      headers: corsHeaders,
-      body: JSON.stringify({ success: false, error: error.message }),
-    };
+    return jsonResponse(500, { success: false, error: error.message });
   }
 };
