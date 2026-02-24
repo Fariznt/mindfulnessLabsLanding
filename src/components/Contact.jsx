@@ -19,7 +19,7 @@ function Contact() {
     setStatus('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/subscribe', {
+      const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
