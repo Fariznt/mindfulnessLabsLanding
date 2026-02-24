@@ -1,5 +1,8 @@
-import { createClient } from '@wix/api-client';
-import { contacts, labels, extendedFields } from '@wix/crm';
+import apiClientPkg from '@wix/api-client';
+const { createClient } = apiClientPkg;
+
+import crmPkg from '@wix/crm';
+const { contacts, labels, extendedFields } = crmPkg;
 
 const wixClient = createClient({
   modules: { contacts, labels, extendedFields },
