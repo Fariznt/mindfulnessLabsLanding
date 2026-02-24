@@ -1,5 +1,5 @@
-const { createClient } = require('@wix/api-client');
-const { contacts, labels, extendedFields } = require('@wix/crm');
+import { createClient } from '@wix/api-client';
+import { contacts, labels, extendedFields } from '@wix/crm';
 
 const wixClient = createClient({
   modules: { contacts, labels, extendedFields },
@@ -87,7 +87,7 @@ async function getExistingLabelKey(displayName) {
   }
 }
 
-exports.handler = async (event, context) => {
+export default async (event, context) => {
   // Parse the body
   let body;
   try {
