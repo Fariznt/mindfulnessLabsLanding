@@ -1,3 +1,5 @@
+import { generateChatReply } from '../../server/lib/agentic-service.js';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -12,8 +14,6 @@ function jsonResponse(statusCode, body) {
   });
 }
 
-// Stub chat endpoint. Always returns a canned reply for now — will be wired
-// up to an AI model later.
 export default async (req, context) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 200, headers: corsHeaders });
@@ -30,6 +30,16 @@ export default async (req, context) => {
     body = {};
   }
 
-  console.log('Received chat message:', body?.message);
-  return jsonResponse(200, { reply: "Thanks for your message! We'll get back to you soon." });
+  const { messages } = body;
+  if (!Array.isArray(messages) || messages.length === 0) {
+    return jsonResponse(400, { error: 'messages array is required' });
+  }
+
+  try {
+    const reply = await generateChatReply(messages);
+    return jsonResponse(200, { reply });
+  } catch (error) {
+    console.error('Error generating chat reply:', error);
+    return jsonResponse(500, { error: error.message });
+  }
 };

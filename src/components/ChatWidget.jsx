@@ -4,7 +4,7 @@ import './ChatWidget.css'
 
 const CHAT_API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:3001/api/chat'
-  : '/.netlify/functions/chat'
+  : '/.netlify/functions/agentic-service'
 
 function ChatWidget() {
   const [open, setOpen] = useState(false)
@@ -23,7 +23,8 @@ function ChatWidget() {
     const text = input.trim()
     if (!text || sending) return
 
-    setMessages((prev) => [...prev, { sender: 'me', text }])
+    const updatedMessages = [...messages, { sender: 'me', text }]
+    setMessages(updatedMessages)
     setInput('')
     setSending(true)
 
@@ -31,8 +32,9 @@ function ChatWidget() {
       const response = await fetch(CHAT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
+        body: JSON.stringify({ messages: updatedMessages })
       })
+      if (!response.ok) throw new Error('Request failed')
       const data = await response.json()
       setMessages((prev) => [...prev, { sender: 'them', text: data.reply }])
     } catch (error) {

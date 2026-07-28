@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { createClient } from '@wix/api-client';
 import { contacts, labels, extendedFields } from '@wix/crm';
+import { generateChatReply } from './lib/agentic-service.js';
 
 dotenv.config();
 
@@ -167,12 +168,19 @@ app.post('/api/subscribe', async (req, res) => {
   }
 });
 
-// Stub chat endpoint. Always returns a canned reply for now — will be wired
-// up to an AI model later.
-app.post('/api/chat', (req, res) => {
-  const { message } = req.body;
-  console.log('Received chat message:', message);
-  res.json({ reply: "Thanks for your message! We'll get back to you soon." });
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { messages } = req.body;
+    if (!Array.isArray(messages) || messages.length === 0) {
+      return res.status(400).json({ error: 'messages array is required' });
+    }
+
+    const reply = await generateChatReply(messages);
+    res.json({ reply });
+  } catch (error) {
+    console.error('Error generating chat reply:', error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Health check endpoint

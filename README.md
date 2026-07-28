@@ -31,9 +31,13 @@ Before you begin, ensure you have the following installed:
    WIX_SITE_ID="<your-wix-site-id>"
    WIX_API_KEY="<your-wix-api-key>"
    PORT=3001
+   AWS_ACCESS_KEY_ID=<your-access-key-id>
+   AWS_SECRET_ACCESS_KEY=<your-access-key>
+   AWS_REGION=<your-aws-region>
+   BEDROCK_MODEL_ID=<-valid-bedrock-model-id>
    ```
 
-   Important: never commit your Wix API key.
+   Important: never commit API keys.
 
 4. **Run the dev servers**
 
