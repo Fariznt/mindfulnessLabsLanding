@@ -4,8 +4,11 @@ import { BedrockRuntimeClient, ConverseCommand } from '@aws-sdk/client-bedrock-r
 import { injectPageLinks } from '../../lib/injectPageLinks.js';
 
 function getSystemPrompt() {
-  const promptPath = join(process.cwd(), 'content/agentic-service/system-prompt.md');
-  return readFileSync(promptPath, 'utf-8').trim();
+  const promptDir = join(process.cwd(), 'content/agentic-service/system-prompt');
+  const parts = ['my-role.md', 'about-mindfulness-labs.md', 'page-links.md'].map((file) =>
+    readFileSync(join(promptDir, file), 'utf-8').trim()
+  );
+  return parts.join('\n\n');
 }
 
 let cachedClient = null;

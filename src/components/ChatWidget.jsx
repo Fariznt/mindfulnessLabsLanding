@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Maximize2, Minimize2, X, Send } from 'lucide-react'
 import { parseChatLinks } from '../../lib/parseChatLinks'
+import introText from '../../content/agentic-service/introduction.md?raw'
 import './ChatWidget.css'
 
 // Turn markdown [label](href) into clickable anchors in assistant replies
@@ -26,12 +27,30 @@ const CHAT_API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:3001/api/chat'
   : '/.netlify/functions/agentic-service'
 
+const CHAT_OPENED_KEY = 'ml-chat-opened'
+
+const INTRO_MESSAGE = {
+  sender: 'them',
+  text: introText.trim()
+}
+
 function ChatWidget() {
   const [open, setOpen] = useState(false)
+  const [showAttentionGlow, setShowAttentionGlow] = useState(
+    () => localStorage.getItem(CHAT_OPENED_KEY) !== '1'
+  )
   const [maximized, setMaximized] = useState(false)
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState([INTRO_MESSAGE])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
+
+  const handleOpen = () => {
+    setOpen(true)
+    if (showAttentionGlow) {
+      setShowAttentionGlow(false)
+      localStorage.setItem(CHAT_OPENED_KEY, '1')
+    }
+  }
 
   const handleClose = () => {
     setOpen(false)
@@ -70,8 +89,8 @@ function ChatWidget() {
   if (!open) {
     return (
       <button
-        className="chat-widget-bubble"
-        onClick={() => setOpen(true)}
+        className={`chat-widget-bubble${showAttentionGlow ? ' chat-widget-bubble--attention' : ''}`}
+        onClick={handleOpen}
         aria-label="Open chat"
       >
         <svg
