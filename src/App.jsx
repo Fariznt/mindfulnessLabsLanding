@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import './App.css'
 import WhySection from './components/WhySection'
 import OurStory from './components/OurStory'
+import ChatWidget from './components/ChatWidget'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <OurStory />
       <Contact />
       <Footer />
+      <ChatWidget />
     </div>
   )
 }

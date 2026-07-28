@@ -167,6 +167,14 @@ app.post('/api/subscribe', async (req, res) => {
   }
 });
 
+// Stub chat endpoint. Always returns a canned reply for now — will be wired
+// up to an AI model later.
+app.post('/api/chat', (req, res) => {
+  const { message } = req.body;
+  console.log('Received chat message:', message);
+  res.json({ reply: "Thanks for your message! We'll get back to you soon." });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
