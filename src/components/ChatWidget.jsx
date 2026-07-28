@@ -1,6 +1,26 @@
 import { useState } from 'react'
 import { Maximize2, Minimize2, X, Send } from 'lucide-react'
+import { parseChatLinks } from '../../lib/parseChatLinks'
 import './ChatWidget.css'
+
+// Turn markdown [label](href) into clickable anchors in assistant replies
+function renderMessageText(text) {
+  return parseChatLinks(text).map((part, i) => {
+    if (part.type !== 'link') return part.value
+
+    const isExternal = /^https?:\/\//i.test(part.href)
+    return (
+      <a
+        key={i}
+        href={part.href}
+        className="chat-message-link"
+        {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
+        {part.value}
+      </a>
+    )
+  })
+}
 
 const CHAT_API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:3001/api/chat'
@@ -97,9 +117,16 @@ function ChatWidget() {
       <div className="chat-widget-body">
         {messages.map((msg, i) => (
           <div key={i} className={`chat-message ${msg.sender === 'me' ? 'chat-message-me' : 'chat-message-them'}`}>
-            {msg.text}
+            {msg.sender === 'them' ? renderMessageText(msg.text) : msg.text}
           </div>
         ))}
+        {sending && (
+          <div className="chat-message chat-message-them chat-message-typing" aria-label="Typing">
+            <span className="chat-typing-dot"></span>
+            <span className="chat-typing-dot"></span>
+            <span className="chat-typing-dot"></span>
+          </div>
+        )}
       </div>
       <form className="chat-widget-input-row" onSubmit={handleSend}>
         <input

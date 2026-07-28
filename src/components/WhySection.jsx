@@ -3,7 +3,7 @@ import "./WhySection.css";
 
 export default function WhySection() {
   return (
-    <section className="why-section">
+    <section id="why" className="why-section">
       <h2 className="why-heading">
         Why <span style={{ color: "#FFB800" }}>Mindfulness Labs?</span>
       </h2>

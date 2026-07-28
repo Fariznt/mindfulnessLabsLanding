@@ -3,7 +3,7 @@ import classroomImage from '../assets/classroom.jpg';
 
 export default function OurStory() {
   return (
-    <section className="our-story">
+    <section id="our-story" className="our-story">
       <div className="our-story-grid">
         <div className="our-story-image">
           <img src={classroomImage} alt="Students and teacher in a colorful classroom" />

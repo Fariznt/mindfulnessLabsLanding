@@ -2,7 +2,7 @@ import './Video.css';
 
 export default function Video() {
   return (
-    <section className="video-section">
+    <section id="video" className="video-section">
       <div className="video-container">
         <h2 className="video-header">Reimagining Wellness in Schools</h2>
         <iframe

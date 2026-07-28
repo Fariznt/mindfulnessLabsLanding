@@ -1,15 +1,11 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { BedrockRuntimeClient, ConverseCommand } from '@aws-sdk/client-bedrock-runtime';
-
-let cachedSystemPrompt = null;
+import { injectPageLinks } from '../../lib/injectPageLinks.js';
 
 function getSystemPrompt() {
-  if (cachedSystemPrompt !== null) return cachedSystemPrompt;
-
   const promptPath = join(process.cwd(), 'content/agentic-service/system-prompt.md');
-  cachedSystemPrompt = readFileSync(promptPath, 'utf-8').trim();
-  return cachedSystemPrompt;
+  return readFileSync(promptPath, 'utf-8').trim();
 }
 
 let cachedClient = null;
@@ -48,5 +44,5 @@ export async function generateChatReply(conversation) {
     throw new Error('No reply returned from model.');
   }
 
-  return reply;
+  return injectPageLinks(reply);
 }
