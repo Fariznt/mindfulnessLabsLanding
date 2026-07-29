@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Maximize2, Minimize2, X, Send } from 'lucide-react'
 import { parseChatLinks } from '../../lib/parseChatLinks'
 import introText from '../../content/agentic-service/introduction.md?raw'
@@ -43,6 +43,13 @@ function ChatWidget() {
   const [messages, setMessages] = useState([INTRO_MESSAGE])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
+  const chatBodyRef = useRef(null)
+
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight
+    }
+  }, [messages, sending, open])
 
   const handleOpen = () => {
     setOpen(true)
@@ -133,7 +140,7 @@ function ChatWidget() {
           </button>
         </div>
       </div>
-      <div className="chat-widget-body">
+      <div className="chat-widget-body" ref={chatBodyRef}>
         {messages.map((msg, i) => (
           <div key={i} className={`chat-message ${msg.sender === 'me' ? 'chat-message-me' : 'chat-message-them'}`}>
             {msg.sender === 'them' ? renderMessageText(msg.text) : msg.text}
