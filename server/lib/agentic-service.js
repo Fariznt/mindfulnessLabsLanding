@@ -5,7 +5,7 @@ import { injectPageLinks } from '../../lib/injectPageLinks.js';
 
 function getSystemPrompt() {
   const promptDir = join(process.cwd(), 'content/agentic-service/system-prompt');
-  const parts = ['my-role.md', 'about-mindfulness-labs.md', 'page-links.md'].map((file) =>
+  const parts = ['my-role.md', 'about-mindfulness-labs.md', 'triggers.md', 'page-links.md'].map((file) =>
     readFileSync(join(promptDir, file), 'utf-8').trim()
   );
   return parts.join('\n\n');
@@ -17,10 +17,10 @@ function getClient() {
   if (cachedClient) return cachedClient;
 
   cachedClient = new BedrockRuntimeClient({
-    region: process.env.AWS_REGION,
+    region: process.env.BEDROCK_REGION,
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: process.env.BEDROCK_ACCESS_KEY_ID,
+      secretAccessKey: process.env.BEDROCK_SECRET_ACCESS_KEY,
     },
   });
   return cachedClient;
