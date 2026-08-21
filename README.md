@@ -92,3 +92,11 @@ To support that flow, the backend guarantees a message is always sent:
 - `npm run dev:full` - Run frontend + backend together
 - `npm run build` - Build the project for production
 - `npm run preview` - Preview the production build locally
+
+## Deployment
+
+The site is hosted on [Netlify](https://www.netlify.com/), a platform that builds and hosts the frontend directly from this GitHub repo.
+
+Once Netlify is connected to this repository, deployment should automatic: **every push to `main` triggers a new production build and deploy**. No manual deploy step is needed — merging or pushing to `main` is the deploy.
+
+Environment variables (e.g. `WIX_SITE_ID`, `WIX_API_KEY`, `BEDROCK_*`) must be configured in the Netlify site settings, since the `.env` file is local-only and not committed to the repo.
